@@ -1,0 +1,30 @@
+# Secrets
+.env
+service_account.json
+**/service_account.json
+
+# Database
+email_bot.db
+*.db
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+audit_report.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright/Browser
+test-results/
+playwright-report/
+blob-report/
+
+# Data
+*.csv
+*.xlsx

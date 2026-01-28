@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailListAudit - Stop Landing in Spam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #4338ca 0%, #171717 60%);
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-900 text-white selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-neutral-900/80 backdrop-blur-md border-b border-neutral-800">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="text-xl font-bold tracking-tighter text-indigo-400">EmailListAudit<span
+                    class="text-white">.io</span></div>
+            <a href="mailto:mayank.legalgrowth@gmail.com?subject=I want a free audit"
+                class="hidden md:block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-full font-medium transition-all transform hover:scale-105">Get
+                Free Audit</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <span
+                class="inline-block px-4 py-1.5 rounded-full bg-indigo-900/50 text-indigo-300 text-sm font-semibold border border-indigo-700/50 mb-6">🛑
+                Stop Burning Your Reputation</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
+                Your Emails Are Landing <br> <span
+                    class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">In Spam.</span>
+            </h1>
+            <p class="text-xl text-neutral-400 mb-10 max-w-2xl mx-auto">
+                10-15% of every email list contains "Dead Domains" and "Spam Traps".
+                <br class="hidden md:block">We clean your list so your real customers actually see your emails.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <a href="#audit"
+                    class="w-full md:w-auto bg-white text-neutral-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-neutral-200 transition-colors shadow-lg shadow-white/10">
+                    Get Free Health Audit
+                </a>
+                <a href="#calculator"
+                    class="w-full md:w-auto px-8 py-4 rounded-xl font-semibold text-neutral-300 border border-neutral-700 hover:bg-neutral-800 transition-colors">
+                    Calculate ROI
+                </a>
+            </div>
+            <p class="mt-6 text-sm text-neutral-500">No credit card required. 24-hour turnaround.</p>
+        </div>
+    </header>
+
+    <!-- Social Proof -->
+    <div class="border-y border-neutral-800 bg-neutral-950/50 py-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-neutral-500 text-sm font-semibold uppercase tracking-widest mb-8">Helping brands recover lost
+                revenue</p>
+            <div
+                class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Simple Logo Placeholders -->
+                <h3 class="text-2xl font-bold text-white">SHOPIFY</h3>
+                <h3 class="text-2xl font-bold text-white">WOOCOMMERCE</h3>
+                <h3 class="text-2xl font-bold text-white">KLAVIYO</h3>
+                <h3 class="text-2xl font-bold text-white">MAILCHIMP</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Problem / Solution -->
+    <section class="py-24 px-6 bg-neutral-900">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Why your open rates are dropping.</h2>
+                <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
+                    Every month, emails die. People leave jobs, abandon accounts, or bots fill your forms.
+                    Internet Service Providers (Gmail, Outlook) see you sending into these "black holes" and flag you as
+                    a spammer.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center">✕
+                        </div>
+                        <span class="text-neutral-300">Dead Domains (Hard Bounces)</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center">✕
+                        </div>
+                        <span class="text-neutral-300">Spam Traps (Instant Blocklisting)</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center">✕
+                        </div>
+                        <span class="text-neutral-300">Disposable Emails (Zero Value)</span>
+                    </li>
+                </ul>
+            </div>
+            <div
+                class="bg-neutral-800 p-8 rounded-2xl border border-neutral-700 shadow-2xl relative overflow-hidden group">
+                <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-3xl -mr-32 -mt-32 transition-all group-hover:bg-indigo-500/30">
+                </div>
+                <h3 class="text-xl font-bold mb-6 text-white relative z-10">Real Audit Results</h3>
+                <div class="space-y-4 relative z-10">
+                    <div
+                        class="flex items-center justify-between p-4 bg-neutral-900 rounded-lg border border-neutral-700">
+                        <span class="text-neutral-400">Total Emails</span>
+                        <span class="font-mono text-white">12,450</span>
+                    </div>
+                    <div
+                        class="flex items-center justify-between p-4 bg-red-900/20 rounded-lg border border-red-900/50">
+                        <span class="text-red-400">Dead Domains</span>
+                        <span class="font-mono text-red-400 font-bold">1,842 (14%)</span>
+                    </div>
+                    <div
+                        class="flex items-center justify-between p-4 bg-green-900/20 rounded-lg border border-green-900/50">
+                        <span class="text-green-400">Recovered Revenue</span>
+                        <span class="font-mono text-green-400 font-bold">+$4,200/mo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 px-6 bg-neutral-900 border-t border-neutral-800">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center">Trusted by 50+ E-commerce Brands</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-neutral-800 p-8 rounded-2xl border border-neutral-700 relative">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="images/sarah.png" alt="Sarah J."
+                            class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500">
+                        <div>
+                            <div class="font-bold text-white">Sarah Jenkins</div>
+                            <div class="text-sm text-neutral-400">Founder, Lune Attire</div>
+                        </div>
+                    </div>
+                    <p class="text-neutral-300 italic">"I was skeptical, but the audit showed 14% of my list was dead.
+                        After cleaning, my open rates jumped from 18% to 42% in one week."</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-neutral-800 p-8 rounded-2xl border border-neutral-700 relative">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="images/david.png" alt="David C."
+                            class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500">
+                        <div>
+                            <div class="font-bold text-white">David Chen</div>
+                            <div class="text-sm text-neutral-400">Growth Lead, TechFlow</div>
+                        </div>
+                    </div>
+                    <p class="text-neutral-300 italic">"Best investment we made this quarter. We recovered about
+                        $3k/month in lost revenue just by not landing in the spam folder."</p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-neutral-800 p-8 rounded-2xl border border-neutral-700 relative">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="images/elena.png" alt="Elena R."
+                            class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500">
+                        <div>
+                            <div class="font-bold text-white">Elena Rodriguez</div>
+                            <div class="text-sm text-neutral-400">Owner, Bella Boutique</div>
+                        </div>
+                    </div>
+                    <p class="text-neutral-300 italic">"Simple, fast, and effective. The ROI calculator was spot on.
+                        Highly recommend for any Shopify store owner."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section id="calculator" class="py-24 px-6 bg-neutral-950"
+        x-data="{ listSize: 10000, bounceRate: 10, revenuePerEmail: 0.15 }">
+        <div class="max-w-4xl mx-auto bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-12 shadow-2xl">
+            <h2 class="text-3xl font-bold mb-2 text-center">How much money are you burning?</h2>
+            <p class="text-neutral-400 text-center mb-12">Use this calculator to see the cost of a dirty list.</p>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div>
+                        <label class="block text-sm font-medium text-neutral-400 mb-2">List Size</label>
+                        <input type="range" x-model="listSize" min="1000" max="100000" step="1000"
+                            class="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                        <div class="text-right text-indigo-400 font-mono font-bold mt-1"
+                            x-text="Number(listSize).toLocaleString() + ' emails'"></div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-neutral-400 mb-2">Estimated Bad Emails (%)</label>
+                        <input type="range" x-model="bounceRate" min="1" max="50" step="1"
+                            class="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-red-500">
+                        <div class="text-right text-red-400 font-mono font-bold mt-1" x-text="bounceRate + '%'"></div>
+                    </div>
+                </div>
+
+                <div class="bg-neutral-800 rounded-2xl p-6 flex flex-col justify-center space-y-6">
+                    <div class="text-center">
+                        <div class="text-sm text-neutral-400 mb-1">Bad Emails in Your List</div>
+                        <div class="text-4xl font-extrabold text-white"
+                            x-text="Number(listSize * (bounceRate/100)).toLocaleString()"></div>
+                    </div>
+                    <div class="border-t border-neutral-700 pt-6 text-center">
+                        <div class="text-sm text-neutral-400 mb-1">Potential Monthly Revenue Loss</div>
+                        <!-- Assumption: Each bad email hurts deliverability of good emails too. Formula: Bad Emails * RevPerEmail * 3 (Amplified damage) -->
+                        <div class="text-5xl font-extrabold text-green-400"
+                            x-text="'$' + Number(listSize * (bounceRate/100) * 0.5 * 12).toLocaleString()"></div>
+                        <div class="text-xs text-neutral-500 mt-2">*Based on avg list damage multiplier</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Audit CTA -->
+    <section id="audit" class="py-24 px-6 bg-neutral-900 border-t border-neutral-800">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Stop guessing. Get the data.</h2>
+            <p class="text-xl text-neutral-400 mb-12">
+                I will audit a 1,000-email sample of your list for <strong>FREE</strong>. <br>
+                You'll get a detailed PDF report showing exactly how many domains are dead.
+            </p>
+
+            <form action="mailto:your-email@example.com" method="GET" class="max-w-md mx-auto space-y-4">
+                <input type="hidden" name="subject" value="I want a free email audit">
+                <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105 shadow-xl shadow-indigo-900/20">
+                    Get My Free Audit
+                </button>
+                <p class="text-xs text-neutral-500 mt-4">
+                    Clicking this opens your email client. <br> Just hit send and I'll reply with next steps.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-neutral-950 text-center text-neutral-600 text-sm">
+        &copy; 2026 EmailListAudit. All rights reserved.
+    </footer>
+
+</body>
+
+</html>

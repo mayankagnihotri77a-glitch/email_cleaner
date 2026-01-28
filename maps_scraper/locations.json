@@ -1,0 +1,74 @@
+{
+    "California": [
+        "San Francisco",
+        "Oakland",
+        "San Jose",
+        "Los Angeles",
+        "Long Beach",
+        "Glendale",
+        "San Diego",
+        "Sacramento",
+        "Irvine",
+        "Riverside"
+    ],
+    "New York": [
+        "New York",
+        "Buffalo",
+        "Rochester",
+        "Albany",
+        "Syracuse"
+    ],
+    "Texas": [
+        "Austin",
+        "Dallas",
+        "Plano",
+        "Houston",
+        "San Antonio",
+        "El Paso"
+    ],
+    "Florida": [
+        "Miami",
+        "Tampa",
+        "Orlando",
+        "Jacksonville",
+        "West Palm Beach"
+    ],
+    "Illinois": [
+        "Chicago",
+        "Aurora",
+        "Naperville",
+        "Joliet",
+        "Rockford"
+    ],
+    "Massachusetts": [
+        "Boston",
+        "Cambridge",
+        "Worcester",
+        "Lowell",
+        "Springfield"
+    ],
+    "Washington": [
+        "Seattle",
+        "Bellevue",
+        "Tacoma",
+        "Spokane"
+    ],
+    "Georgia": [
+        "Atlanta",
+        "Savannah",
+        "Augusta",
+        "Columbus"
+    ],
+    "New Jersey": [
+        "Newark",
+        "Jersey City",
+        "Paterson",
+        "Princeton"
+    ],
+    "Pennsylvania": [
+        "Philadelphia",
+        "Pittsburgh",
+        "Allentown",
+        "Erie"
+    ]
+}

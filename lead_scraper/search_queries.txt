@@ -1,0 +1,46 @@
+
+# COPY AND PASTE THESE INTO GOOGLE ONE BY ONE
+# Save each result page (e.g. page1.html, page2.html...)
+
+# --- CLOTHING & FASHION ---
+site:instagram.com "gmail.com" "clothing brand" "USA"
+site:instagram.com "gmail.com" "streetwear" "USA"
+site:instagram.com "gmail.com" "apparel" "new york"
+site:instagram.com "gmail.com" "fashion label" "los angeles"
+site:instagram.com "gmail.com" "clothing line" "miami"
+site:instagram.com "gmail.com" "boutique" "online store" "USA"
+site:instagram.com "gmail.com" "sustainable fashion" "USA"
+site:instagram.com "gmail.com" "activewear" "USA"
+site:instagram.com "gmail.com" "swimwear" "USA"
+site:instagram.com "gmail.com" "lounge wear" "USA"
+
+# --- JEWELRY & ACCESSORIES ---
+site:instagram.com "gmail.com" "jewelry brand" "USA"
+site:instagram.com "gmail.com" "handmade jewelry" "USA"
+site:instagram.com "gmail.com" "accessories" "shop" "USA"
+site:instagram.com "gmail.com" "sunglasses" "brand" "USA"
+site:instagram.com "gmail.com" "handbags" "brand" "USA"
+
+# --- BEAUTY & SKINCARE ---
+site:instagram.com "gmail.com" "skincare" "brand" "USA"
+site:instagram.com "gmail.com" "cosmetics" "line" "USA"
+site:instagram.com "gmail.com" "beauty" "shop" "USA"
+site:instagram.com "gmail.com" "hair care" "brand" "USA"
+site:instagram.com "gmail.com" "organic beauty" "USA"
+
+# --- HOTMAIL / YAHOO VARIATIONS (Less competition) ---
+site:instagram.com "hotmail.com" "clothing brand" "USA"
+site:instagram.com "yahoo.com" "clothing brand" "USA"
+site:instagram.com "outlook.com" "clothing brand" "USA"
+
+# --- TARGETING "CEO" / "FOUNDER" DIRECTLY ---
+site:instagram.com "gmail.com" "founder" "clothing" "USA"
+site:instagram.com "gmail.com" "ceo" "apparel" "USA"
+site:instagram.com "gmail.com" "owner" "boutique" "USA"
+
+# --- BY STATE (Deep Dive) ---
+site:instagram.com "gmail.com" "clothing" "texas"
+site:instagram.com "gmail.com" "clothing" "california"
+site:instagram.com "gmail.com" "clothing" "florida"
+site:instagram.com "gmail.com" "clothing" "georgia"
+site:instagram.com "gmail.com" "clothing" "illinois"
