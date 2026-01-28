@@ -146,3 +146,38 @@ class SheetManager:
             return set(r['Website'] for r in records if r.get('Website'))
         except:
             return set()
+
+    def remove_invalid_leads(self, invalid_emails):
+        """Removes leads with these emails from 'Leads with Email' sheet."""
+        if not invalid_emails: return
+        
+        print(f"[Sheet] Removing {len(invalid_emails)} invalid emails...")
+        
+        # Strategy:
+        # 1. Get all cells in Email column (Column 1)
+        # 2. Find rows matching invalid emails
+        # 3. Delete rows (from bottom up to preserve indices)
+        
+        try:
+            # Column 1 is Email
+            email_cells = self.email_worksheet.col_values(1)
+            
+            # Map Email -> Row Index (1-based)
+            # Note: col_values returns list of strings. Index 0 is Row 1.
+            
+            rows_to_delete = []
+            for idx, email_val in enumerate(email_cells):
+                if email_val in invalid_emails:
+                    rows_to_delete.append(idx + 1)
+            
+            # Sort descending
+            rows_to_delete.sort(reverse=True)
+            
+            for row_idx in rows_to_delete:
+                print(f"   Deleting row {row_idx} ({email_cells[row_idx-1]})")
+                self.email_worksheet.delete_rows(row_idx)
+                
+            print(f"[Sheet] Successfully deleted {len(rows_to_delete)} rows.")
+            
+        except Exception as e:
+            print(f"[Sheet] Error removing invalid leads: {e}")

@@ -42,3 +42,12 @@ jobs:
       run: |
         # Run module
         python -m maps_scraper.maps_bot
+
+    - name: Run Auto-Cleaner
+      env:
+        PYTHONPATH: "."
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: |
+        # Run cleaner
+        python run_cleaning_job.py
