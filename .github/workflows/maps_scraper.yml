@@ -31,21 +31,14 @@ jobs:
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       run: |
-        # Write secret to file
-        # Ensure directories exist
-        mkdir -p email_cleaner/buzzscope_today_automation
-        
-        echo "$GCP_SA_KEY" > email_cleaner/buzzscope_today_automation/service_account.json
-        # Also put one in fallback location just in case
-        echo "$GCP_SA_KEY" > email_cleaner/service_account.json
+        # Write secret to root
+        echo "$GCP_SA_KEY" > service_account.json
 
     - name: Run Maps Scraper
       env:
-        PYTHONPATH: "email_cleaner"
+        PYTHONPATH: "."
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        # Assuming scraper looks for sheet URL in env or default
       run: |
         # Run module
         python -m maps_scraper.maps_bot
-      working-directory: email_cleaner

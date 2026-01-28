@@ -8,7 +8,16 @@ from maps_scraper.sheet_manager import SheetManager
 
 # Configuration
 DEFAULT_SHEET_URL = "https://docs.google.com/spreadsheets/d/1CDomOmwx5ExqgHSabEneY_Z8KGF5aRPxLrQFu92Bt-M/edit?usp=sharing"
-SERVICE_ACCOUNT_KEY = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "buzzscope_today_automation", "service_account.json")
+
+# Service Account Path Logic (Supports Local & GitHub Actions)
+_base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # email_cleaner/
+_local_path = os.path.join(os.path.dirname(_base_dir), "buzzscope_today_automation", "service_account.json") # ../buzzscope/
+_repo_path = os.path.join(_base_dir, "service_account.json") # ./service_account.json
+
+if os.path.exists(_local_path):
+    SERVICE_ACCOUNT_KEY = _local_path
+else:
+    SERVICE_ACCOUNT_KEY = _repo_path
 
 class MapsScraper:
     def __init__(self, headless=False):

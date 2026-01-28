@@ -47,22 +47,18 @@ jobs:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         ENV_FILE: ${{ secrets.ENV_FILE }}
       run: |
-        # Service Account
-        mkdir -p email_cleaner/buzzscope_today_automation
-        echo "$GCP_SA_KEY" > email_cleaner/buzzscope_today_automation/service_account.json
-        echo "$GCP_SA_KEY" > email_cleaner/service_account.json
+        # Service Account (Root)
+        echo "$GCP_SA_KEY" > service_account.json
         
-        # .env file (SMTP Creds)
-        echo "$ENV_FILE" > email_cleaner/.env
+        # .env file (Root)
+        echo "$ENV_FILE" > .env
 
     - name: Run Email Bot (Scheduled)
       env:
-        PYTHONPATH: "email_cleaner"
+        PYTHONPATH: "."
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       run: |
-        cd email_cleaner
-        
         # 1. Always Sync first (Statelessness)
         python -m email_bot.manager --sync-only
         
