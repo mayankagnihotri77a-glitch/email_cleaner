@@ -1,4 +1,4 @@
-name: "Daily Maps Scraper"
+name: "Daily Maps Scraper (Active)"
 
 on:
   schedule:
