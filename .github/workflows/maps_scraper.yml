@@ -23,7 +23,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f email_cleaner/requirements.txt ]; then pip install -r email_cleaner/requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install pandas google-auth oauth2client playwright gspread python-dotenv schedule telegram-send
         playwright install chromium
       
