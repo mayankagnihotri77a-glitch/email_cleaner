@@ -73,28 +73,46 @@ jobs:
         # 16:00 UTC -> F3, F4, F5 (Stage 3, 4, 5)
         # 20:00 UTC -> F2 (Stage 2)
         
+        event_name="${{ github.event_name }}"
         current_hour=$(date -u +%H)
         current_min=$(date -u +%M)
         
-        if [ "$current_hour" -eq 15 ] && [ "$current_min" -lt 15 ]; then
-             echo "Triggering Stage 0 (Initial)"
-             python -m email_bot.manager --stage 0
+        echo "Event: $event_name, Time (UTC): $current_hour:$current_min"
+        
+        if [ "$event_name" == "schedule" ]; then
+             # SCHEDULED LOGIC
+             # Allow broader windows to handle GitHub Actions delays
              
-        elif [ "$current_hour" -eq 15 ] && [ "$current_min" -ge 30 ]; then
-             echo "Triggering Stage 1"
-             python -m email_bot.manager --stage 1
+             if [ "$current_hour" -eq 15 ] && [ "$current_min" -lt 30 ]; then
+                  # 15:00 - 15:29 UTC -> Stage 0 (Initial)
+                  echo "Triggering Stage 0 (Initial)"
+                  python -m email_bot.manager --stage 0
+                  
+             elif [ "$current_hour" -eq 15 ] && [ "$current_min" -ge 30 ]; then
+                  # 15:30 - 15:59 UTC -> Stage 1
+                  echo "Triggering Stage 1"
+                  python -m email_bot.manager --stage 1
+                  
+             elif [ "$current_hour" -ge 16 ] && [ "$current_hour" -lt 20 ]; then
+                  # 16:00 - 19:59 UTC -> Stage 3, 4, 5
+                  # This covers the 16:00 trigger + potential massive delays
+                  echo "Triggering Stage 3, 4, 5"
+                  python -m email_bot.manager --stage 3
+                  python -m email_bot.manager --stage 4
+                  python -m email_bot.manager --stage 5
+                  
+             elif [ "$current_hour" -ge 20 ]; then
+                  # 20:00 - 23:59 UTC -> Stage 2
+                  # This covers the 20:00 trigger (1:30 AM IST)
+                  echo "Triggering Stage 2"
+                  python -m email_bot.manager --stage 2
              
-        elif [ "$current_hour" -eq 16 ]; then
-             echo "Triggering Stage 3, 4, 5"
-             python -m email_bot.manager --stage 3
-             python -m email_bot.manager --stage 4
-             python -m email_bot.manager --stage 5
-             
-        elif [ "$current_hour" -eq 20 ]; then
-             echo "Triggering Stage 2"
-             python -m email_bot.manager --stage 2
+             else
+                  echo "Scheduled run fell outside expected windows. Doing nothing to play it safe."
+             fi
         
         else
+             # MANUAL / DISPATCH LOGIC
              echo "Manual/Default Trigger"
              if [ "${{ github.event.inputs.stage }}" != "" ]; then
                  python -m email_bot.manager --stage ${{ github.event.inputs.stage }}
