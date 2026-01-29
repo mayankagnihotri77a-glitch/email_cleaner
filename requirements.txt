@@ -3,3 +3,4 @@ webdriver-manager
 gspread
 oauth2client
 python-dotenv
+colorama
