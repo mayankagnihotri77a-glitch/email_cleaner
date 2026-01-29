@@ -1,0 +1,39 @@
+name: "B2B Directory Hunter (Active)"
+
+on:
+  schedule:
+    # Run Daily at 04:00 UTC (9:30 AM IST)
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  run_directory_hunt:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.14'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pandas google-auth oauth2client requests beautifulsoup4 duckduckgo-search gspread python-dotenv python-whois
+      
+    - name: Create Service Account File
+      env:
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      run: |
+        echo "$GCP_SA_KEY" > service_account.json
+
+    - name: Run Directory Hunter
+      env:
+        PYTHONPATH: "."
+      run: |
+        # 5 leads per niche x 5 niches = ~25 new leads per week
+        python lead_scraper/directory_hunt.py

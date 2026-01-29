@@ -34,6 +34,7 @@ def integrate_leads(target_domains, start_row=22):
     existing_emails = ws.col_values(1) # Column A
     
     current_row = start_row
+    total_added = 0
     
     for domain in target_domains:
         print(f"\n--- Hunting for {domain} ---")
@@ -68,6 +69,7 @@ def integrate_leads(target_domains, start_row=22):
             ]
             
             print(f"    [+] Adding {email} at row {current_row}")
+            total_added += 1
             
             # Insert or update cell?
             # User wants SPECIFICALLY from row 22.
@@ -91,6 +93,13 @@ def integrate_leads(target_domains, start_row=22):
                 
             except Exception as e:
                 print(f"    [!] Sheet Error: {e}")
+
+    msg = f"🚀 **Smart Lead Hunter Report**\n- Processed: {len(target_domains)} domains\n- New Leads Added: {total_added}"
+    try:
+        from maps_scraper.telegram_notifier import send_telegram_message
+        send_telegram_message(msg)
+    except Exception as e:
+        print(f"[!] Telegram Error: {e}")
 
     print("\n[Done] Integration Complete.")
 
