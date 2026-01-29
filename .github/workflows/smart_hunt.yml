@@ -1,0 +1,40 @@
+name: "Smart Lead Hunter (Active)"
+
+on:
+  schedule:
+    # Run daily at 02:00 UTC (7:30 AM IST) - 2 hours after scraper
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  run_smart_hunt:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.14'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pandas google-auth oauth2client playwright gspread python-dotenv schedule telegram-send
+        playwright install chromium
+      
+    - name: Create Service Account File
+      env:
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      run: |
+        echo "$GCP_SA_KEY" > service_account.json
+
+    - name: Run Smart Hunter
+      env:
+        PYTHONPATH: "."
+      run: |
+        # Limit to 20 domains per run to manage execution time
+        python integrate_smart_hunt.py --limit 20
