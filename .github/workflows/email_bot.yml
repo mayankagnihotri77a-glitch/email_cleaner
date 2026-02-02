@@ -4,17 +4,17 @@ on:
   schedule:
     # IST to UTC Conversion (IST is +5:30)
     
-    # 1. Initial (Day 0) -> 8:30 PM IST = 15:00 UTC
-    - cron: '0 15 * * *'
+    # 1. Initial (Day 0) -> 10:00 AM IST = 04:30 UTC
+    - cron: '30 4 * * *'
     
-    # 2. Follow-up 1 (Day 3) -> 9:00 PM IST = 15:30 UTC
-    - cron: '30 15 * * *'
+    # 2. Follow-up 1 (Day 3) -> 11:00 AM IST = 05:30 UTC
+    - cron: '30 5 * * *'
     
-    # 3. Follow-up 2 (Day 6) -> 1:30 AM IST = 20:00 UTC (Previous Day)
-    - cron: '0 20 * * *'
+    # 3. Follow-up 2 (Day 6) -> 12:00 PM IST = 06:30 UTC
+    - cron: '30 6 * * *'
     
-    # 4. Follow-up 3, 4, 5 -> 9:30 PM IST = 16:00 UTC
-    - cron: '0 16 * * *'
+    # 4. Follow-up 3, 4, 5 -> 01:00 PM IST = 07:30 UTC
+    - cron: '30 7 * * *'
 
   workflow_dispatch:
     inputs:
@@ -63,15 +63,11 @@ jobs:
         python -m email_bot.manager --sync-only
         
         # 2. Determine Stage based on Time (Approximate)
-        # GitHub Actions Cron is not perfectly precise, so we check time range
-        # OR we just run the manager with no args?
-        # Manager default run_bot() sends everything pending.
-        # BUT user wanted specific stages at specific times.
-        # Smart Scheduler logic:
-        # 15:00 UTC -> Initial (Stage 0)
-        # 15:30 UTC -> F1 (Stage 1)
-        # 16:00 UTC -> F3, F4, F5 (Stage 3, 4, 5)
-        # 20:00 UTC -> F2 (Stage 2)
+        # Smart Scheduler logic (UTC):
+        # 04:30 UTC -> Stage 0 (Initial)
+        # 05:30 UTC -> Stage 1
+        # 06:30 UTC -> Stage 2
+        # 07:30 UTC -> Stage 3, 4, 5
         
         event_name="${{ github.event_name }}"
         current_hour=$(date -u +%H)
@@ -81,34 +77,31 @@ jobs:
         
         if [ "$event_name" == "schedule" ]; then
              # SCHEDULED LOGIC
-             # Allow broader windows to handle GitHub Actions delays
              
-             if [ "$current_hour" -eq 15 ] && [ "$current_min" -lt 30 ]; then
-                  # 15:00 - 15:29 UTC -> Stage 0 (Initial)
+             if [ "$current_hour" -eq 4 ]; then
+                  # 04:30 UTC -> Stage 0 (Initial)
                   echo "Triggering Stage 0 (Initial)"
                   python -m email_bot.manager --stage 0
                   
-             elif [ "$current_hour" -eq 15 ] && [ "$current_min" -ge 30 ]; then
-                  # 15:30 - 15:59 UTC -> Stage 1
+             elif [ "$current_hour" -eq 5 ]; then
+                  # 05:30 UTC -> Stage 1
                   echo "Triggering Stage 1"
                   python -m email_bot.manager --stage 1
+             
+             elif [ "$current_hour" -eq 6 ]; then
+                  # 06:30 UTC -> Stage 2
+                  echo "Triggering Stage 2"
+                  python -m email_bot.manager --stage 2
                   
-             elif [ "$current_hour" -ge 16 ] && [ "$current_hour" -lt 20 ]; then
-                  # 16:00 - 19:59 UTC -> Stage 3, 4, 5
-                  # This covers the 16:00 trigger + potential massive delays
+             elif [ "$current_hour" -eq 7 ]; then
+                  # 07:30 UTC -> Stage 3, 4, 5
                   echo "Triggering Stage 3, 4, 5"
                   python -m email_bot.manager --stage 3
                   python -m email_bot.manager --stage 4
                   python -m email_bot.manager --stage 5
-                  
-             elif [ "$current_hour" -ge 20 ]; then
-                  # 20:00 - 23:59 UTC -> Stage 2
-                  # This covers the 20:00 trigger (1:30 AM IST)
-                  echo "Triggering Stage 2"
-                  python -m email_bot.manager --stage 2
              
              else
-                  echo "Scheduled run fell outside expected windows. Doing nothing to play it safe."
+                  echo "Scheduled run fell outside expected windows. Doing nothing."
              fi
         
         else

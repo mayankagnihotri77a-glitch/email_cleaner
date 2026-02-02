@@ -49,9 +49,15 @@ def send_email(to_email, subject, body_html, dry_run=False):
         return False
 
     msg = MIMEMultipart()
-    msg["From"] = EMAIL_USER
+    sender_email = os.getenv("SENDER_EMAIL", EMAIL_USER)
+    reply_to = os.getenv("REPLY_TO_EMAIL")
+    
+    msg["From"] = sender_email
     msg["To"] = to_email
     msg["Subject"] = final_subject
+    
+    if reply_to:
+        msg["Reply-To"] = reply_to
     msg.attach(MIMEText(final_body, "html"))
 
     try:
