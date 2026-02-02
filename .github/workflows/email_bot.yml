@@ -3,18 +3,24 @@ name: "Smart Email Scheduler"
 on:
   schedule:
     # IST to UTC Conversion (IST is +5:30)
-    
-    # 1. Initial (Day 0) -> 10:00 AM IST = 04:30 UTC
-    - cron: '30 4 * * *'
-    
-    # 2. Follow-up 1 (Day 3) -> 11:00 AM IST = 05:30 UTC
-    - cron: '30 5 * * *'
-    
-    # 3. Follow-up 2 (Day 6) -> 12:00 PM IST = 06:30 UTC
-    - cron: '30 6 * * *'
-    
-    # 4. Follow-up 3, 4, 5 -> 01:00 PM IST = 07:30 UTC
-    - cron: '30 7 * * *'
+
+    # 1. Stage 5 -> 7:30 PM IST = 14:00 UTC
+    - cron: '0 14 * * *'
+
+    # 2. Stage 0 (Initial) -> 8:30 PM IST = 15:00 UTC
+    - cron: '0 15 * * *'
+
+    # 3. Stage 1 -> 9:00 PM IST = 15:30 UTC
+    - cron: '30 15 * * *'
+
+    # 4. Stage 4 -> 9:30 PM IST = 16:00 UTC
+    - cron: '0 16 * * *'
+
+    # 5. Stage 2 -> 10:00 PM IST = 16:30 UTC
+    - cron: '30 16 * * *'
+
+    # 6. Stage 3 -> 1:30 AM IST = 20:00 UTC (Previous Day)
+    - cron: '0 20 * * *'
 
   workflow_dispatch:
     inputs:
@@ -62,12 +68,13 @@ jobs:
         # 1. Always Sync first (Statelessness)
         python -m email_bot.manager --sync-only
         
-        # 2. Determine Stage based on Time (Approximate)
-        # Smart Scheduler logic (UTC):
-        # 04:30 UTC -> Stage 0 (Initial)
-        # 05:30 UTC -> Stage 1
-        # 06:30 UTC -> Stage 2
-        # 07:30 UTC -> Stage 3, 4, 5
+        # 2. Determine Stage based on Time (UTC)
+        # 14:00 UTC -> Stage 5 (7:30 PM IST)
+        # 15:00 UTC -> Stage 0 (8:30 PM IST)
+        # 15:30 UTC -> Stage 1 (9:00 PM IST)
+        # 16:00 UTC -> Stage 4 (9:30 PM IST)
+        # 16:30 UTC -> Stage 2 (10:00 PM IST)
+        # 20:00 UTC -> Stage 3 (1:30 AM IST)
         
         event_name="${{ github.event_name }}"
         current_hour=$(date -u +%H)
@@ -78,27 +85,36 @@ jobs:
         if [ "$event_name" == "schedule" ]; then
              # SCHEDULED LOGIC
              
-             if [ "$current_hour" -eq 4 ]; then
-                  # 04:30 UTC -> Stage 0 (Initial)
-                  echo "Triggering Stage 0 (Initial)"
-                  python -m email_bot.manager --stage 0
-                  
-             elif [ "$current_hour" -eq 5 ]; then
-                  # 05:30 UTC -> Stage 1
-                  echo "Triggering Stage 1"
-                  python -m email_bot.manager --stage 1
-             
-             elif [ "$current_hour" -eq 6 ]; then
-                  # 06:30 UTC -> Stage 2
-                  echo "Triggering Stage 2"
-                  python -m email_bot.manager --stage 2
-                  
-             elif [ "$current_hour" -eq 7 ]; then
-                  # 07:30 UTC -> Stage 3, 4, 5
-                  echo "Triggering Stage 3, 4, 5"
-                  python -m email_bot.manager --stage 3
-                  python -m email_bot.manager --stage 4
+             if [ "$current_hour" -eq 14 ]; then
+                  echo "Triggering Stage 5 (7:30 PM IST)"
                   python -m email_bot.manager --stage 5
+                  
+             elif [ "$current_hour" -eq 15 ]; then
+                  if [ "$current_min" -lt 15 ]; then
+                      # 15:00 UTC -> Stage 0
+                      echo "Triggering Stage 0 (8:30 PM IST)"
+                      python -m email_bot.manager --stage 0
+                  else
+                      # 15:30 UTC -> Stage 1
+                      echo "Triggering Stage 1 (9:00 PM IST)"
+                      python -m email_bot.manager --stage 1
+                  fi
+                  
+             elif [ "$current_hour" -eq 16 ]; then
+                  if [ "$current_min" -lt 15 ]; then
+                      # 16:00 UTC -> Stage 4
+                      echo "Triggering Stage 4 (9:30 PM IST)"
+                      python -m email_bot.manager --stage 4
+                  else
+                      # 16:30 UTC -> Stage 2
+                      echo "Triggering Stage 2 (10:00 PM IST)"
+                      python -m email_bot.manager --stage 2
+                  fi
+             
+             elif [ "$current_hour" -eq 20 ]; then
+                  # 20:00 UTC -> Stage 3
+                  echo "Triggering Stage 3 (1:30 AM IST)"
+                  python -m email_bot.manager --stage 3
              
              else
                   echo "Scheduled run fell outside expected windows. Doing nothing."
