@@ -1,14 +1,13 @@
-name: "Daily Maps Scraper (Active)"
+name: "Smart Lead Hunter (Active)"
 
 on:
   schedule:
-    # Run daily at 00:00 UTC (5:30 AM IST)
-    - cron: '0 0 * * *'
-  # Allow manual trigger
+    # Run daily at 02:00 UTC (7:30 AM IST) - 2 hours after scraper
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 jobs:
-  scrape_and_update:
+  run_smart_hunt:
     runs-on: ubuntu-latest
     
     steps:
@@ -31,23 +30,11 @@ jobs:
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       run: |
-        # Write secret to root
         echo "$GCP_SA_KEY" > service_account.json
 
-    - name: Run Maps Scraper
+    - name: Run Smart Hunter
       env:
         PYTHONPATH: "."
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       run: |
-        # Run module
-        python -m maps_scraper.maps_bot
-
-    - name: Run Auto-Cleaner
-      env:
-        PYTHONPATH: "."
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      run: |
-        # Run cleaner
-        python run_cleaning_job.py
+        # Limit to 20 domains per run to manage execution time
+        python integrate_smart_hunt.py --limit 20

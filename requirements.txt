@@ -4,3 +4,7 @@ gspread
 oauth2client
 python-dotenv
 colorama
+duckduckgo-search
+python-whois
+beautifulsoup4
+requests
