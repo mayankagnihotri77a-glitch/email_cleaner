@@ -27,12 +27,14 @@ jobs:
         pip install pandas google-auth oauth2client playwright gspread python-dotenv schedule telegram-send
         playwright install chromium
       
-    - name: Create Service Account File
+    - name: Create Secrets
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        ENV_FILE: ${{ secrets.ENV_FILE }}
       run: |
-        # Write secret to root
+        # Write secrets to root
         echo "$GCP_SA_KEY" > service_account.json
+        echo "$ENV_FILE" > .env
 
     - name: Run Maps Scraper
       env:
