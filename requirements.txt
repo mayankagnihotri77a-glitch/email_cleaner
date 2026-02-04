@@ -8,3 +8,4 @@ duckduckgo-search
 python-whois
 beautifulsoup4
 requests
+dnspython
