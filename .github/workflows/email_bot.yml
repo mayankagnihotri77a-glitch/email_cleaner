@@ -6,6 +6,9 @@ on:
 
     # 1. Stage 5 -> 7:30 PM IST = 14:00 UTC
     - cron: '0 14 * * *'
+    
+    # 1.5 Early Afternoon -> 3:00 PM IST = 09:30 UTC
+    - cron: '30 9 * * *'
 
     # 2. Stage 0 (Initial) -> 8:30 PM IST = 15:00 UTC
     - cron: '0 15 * * *'
@@ -116,8 +119,15 @@ jobs:
                   echo "Triggering Stage 3 (1:30 AM IST)"
                   python -m email_bot.manager --stage 3
              
+             elif [ "$current_hour" -eq 09 ]; then
+                  # 09:30 UTC -> 3:00 PM IST (Early Afternoon)
+                  # Good for Initial Outreach or General Catch-up
+                  echo "Triggering General Run (3:00 PM IST)"
+                  python -m email_bot.manager --stage 0
+             
              else
-                  echo "Scheduled run fell outside expected windows. Doing nothing."
+                  echo "Time slot not strictly mapped. Running standard batch."
+                  python -m email_bot.manager
              fi
         
         else
